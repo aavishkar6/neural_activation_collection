@@ -1,0 +1,32 @@
+
+strategies:
+  first_token:
+    description: "Extract activation from the first token"
+    position: 0
+    aggregation: null
+
+  first_5_tokens:
+    description: "Extract activation from the first 5 tokens"
+    position: [ 0, 1, 2, 3, 4]
+    aggregation: "mean"
+
+  first_10_tokens:
+    description: "Extract and average activations from first 10 tokens"
+    position: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    aggregation: "mean"
+  
+  last_token:
+    description: "Extract activation from the last token"
+    position: -1
+    aggregation: null
+  
+  mean_last_5:
+    description: "Average activations from last 5 tokens"
+    position: [-5, -4, -3, -2, -1]
+    aggregation: "mean"
+
+  concept_position:
+    description: "Extract activation at concept token position"
+    position: "dynamic"  # Computed based on template
+    aggregation: null
+    requires_template: true

@@ -1,0 +1,50 @@
+# Output settings
+output:
+  base_dir: "./activations_output"
+  run_name: "run_001"
+  save_format: "pt"
+  compression: true
+
+# Model settings
+models:
+  - name: "meta-llama/Llama-2-7b-hf"
+    family: "llama"
+    dtype: "float16"
+    device_map: "auto"
+  
+  - name: "google/gemma-2b"
+    family: "gemma"
+    dtype: "float16"
+    device_map: "auto"
+  
+  - name: "Qwen/Qwen-7B"
+    family: "qwen"
+    dtype: "float16"
+    device_map: "auto"
+
+# Data settings
+data:
+  dataset_name: "declare-lab/CategoricalHarmfulQA"
+  categories:
+    - "Adult Content"
+    - "Economic Harm"
+    - "Hate/Harass/Violence"
+    - "Malware Viruses"
+    - "Political Campaigning"
+  
+  num_samples_per_category: 50
+  harmless_data_path: "/scratch/ag8298/post_grad_experiments/neural_activity_collection/harmless_data.txt"
+
+# Collection settings
+collection:
+  strategies:
+    - "first_token"
+    - "first_5_tokens"
+    - "first_10_tokens"
+    - "last_token"
+    - "mean_last_5"
+    - "concept_position"
+  
+  batch_size: 4  # For nnsight processing
+  max_length: 512
+  layers: "all"  # "all" or list of layer indices [0, 10, 20]
