@@ -28,7 +28,7 @@ def main():
     parser.add_argument(
         '--config',
         type=str,
-        default='../config/base_config.yaml',
+        default='./config/base_config.yaml',
         help='Path to configuration file'
     )
 
@@ -46,7 +46,6 @@ def main():
             strategy_configs = yaml.safe_load(f)
             config['collection']['strategies_config'] = strategy_configs.get('strategies', {})
     
-
     # load data
     print("Loading datasets...")
     data_loader = DatasetLoader(config)
@@ -60,23 +59,28 @@ def main():
     print("ACTIVATION COLLECTION")
     print("="*80)
     print(f"Run name: {config['output']['run_name']}")
+    print("="*40)
     print(f"Output directory: {config['output']['base_dir']}")
+    print("="*40)
     print(f"Models: {[m['name'] for m in config['models']]}")
+    print("="*40)
     print(f"Categories: {config['data']['categories']}")
+    print("="*40)
     print(f"Strategies: {config['collection']['strategies']}")
+    print("="*40)
 
     # # Initialize collector
-    # collector = ActivationCollector(config)
+    collector = ActivationCollector(config)
 
     # # Collect activation values
     try:
         pass
-    #     collector.collect_all(
-    #         models_config,
-    #         data,
-    #         strategies,
-    #         harmless_data,
-    #     )
+        collector.collect_all(
+            models_config = config['models'],
+            data = harmful_data,
+            strategies = config['collection']['strategies'],
+            harmless_data = harmless_data
+        )
 
 
     except Exception as e:

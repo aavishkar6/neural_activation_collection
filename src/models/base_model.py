@@ -71,6 +71,25 @@ class BaseModelWrapper(ABC):
         """
         pass
 
+    def get_layer_output(self, layer_idx: int, use_nnsight: bool = True):
+        """
+        Get output of a specific layer.
+        
+        Args:
+            layer_idx: Index of the layer
+            use_nnsight: Whether to use nnsight model
+        
+        Returns:
+            Layer output (from forward pass)
+        """
+        if use_nnsight:
+            layer = self.get_layer_module(layer_idx)
+            return layer.output
+        else:
+            # For regular forward pass
+            raise NotImplementedError("Regular forward pass not implemented")
+
+            
     def tokenize(self, texts: List[str], **kwargs) -> Dict:
         """Tokenize texts"""
         return self.tokenizer(

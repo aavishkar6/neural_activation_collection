@@ -3,7 +3,8 @@ from .token_position_strategy import (
     TokenPositionStrategy,
     FirstTokenStrategy,
     LastTokenStrategy,
-    MeanLast5Strategy
+    MeanLast5Strategy,
+    FirstFiveStrategy
 )
 # from .template_strategy import ConceptPositionStrategy
 
@@ -11,6 +12,7 @@ STRATEGY_REGISTRY = {
     'first_token': FirstTokenStrategy,
     'last_token': LastTokenStrategy,
     'mean_last_5': MeanLast5Strategy,
+    'first_5_tokens': FirstFiveStrategy
 }
 
 def get_strategy(strategy_name: str, config: dict = None):

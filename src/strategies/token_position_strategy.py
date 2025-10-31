@@ -26,10 +26,11 @@ class TokenPositionStrategy(BaseCollectionStrategy):
         
         n_layers = len(layers)
         n_prompts = len(prompts)
+        n_positions = len(self.position)
         hidden_size = model_wrapper.get_hidden_size()
         
         # Initialize output tensor
-        activations = torch.zeros(n_layers, n_prompts, hidden_size)
+        activations = torch.zeros(n_layers, n_prompts, n_positions, hidden_size)
         
         # Use nnsight to collect activations
         with model_wrapper.nnsight_model.trace(prompts):
@@ -51,6 +52,8 @@ class TokenPositionStrategy(BaseCollectionStrategy):
                         position_acts = position_acts.mean(dim=1)
                     elif self.aggregation == 'max':
                         position_acts = position_acts.max(dim=1)[0]
+                    elif self.aggregation == 'null':
+                        pass
                     else:
                         raise ValueError(f"Unknown aggregation: {self.aggregation}")
                 
@@ -89,4 +92,11 @@ class MeanLast5Strategy(TokenPositionStrategy):
     
     def __init__(self, name: str = "mean_last_5", config: Dict = None):
         config = config or {'position': [-5, -4, -3, -2, -1], 'aggregation': 'mean'}
+        super().__init__(name, config)
+
+class FirstFiveStrategy(TokenPositionStrategy):
+    """Strategy for the first 5 tokens"""
+
+    def __init__(self, name: str="first_5_tokens", config: Dict = None):
+        config = config or {'position': [0, 1, 2, 3, 4,], 'aggregation': 'mean'}
         super().__init__(name, config)
