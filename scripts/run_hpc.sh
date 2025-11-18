@@ -36,9 +36,6 @@ eval "$(conda shell.bash hook)"
 # Activate Conda environment
 conda activate abliteration
 
-# Parse command-line arguments
-CONFIG_FILE="${1:-./config/base_config.yaml}"
-
 # Run the collection script
 python src/run_collection.py
 
