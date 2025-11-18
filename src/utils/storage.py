@@ -75,11 +75,11 @@ class ActivationStorage:
 
         save_path = self.get_save_path(model_name, category, strategy)
 
-        print(f"Save path is {save_path}")
+        # print(f"Save path is {save_path}")
 
         torch.save(activations, save_path)
 
-        print(f"✓ Saved: {save_path.relative_to(self.base_dir)}")
+        print(f"✓ Saved to: {save_path}")
 
 
     

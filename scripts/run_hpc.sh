@@ -5,15 +5,15 @@
 #================================================================#
 
 #SBATCH --job-name=collect_activations   # A descriptive name for your job
-#SBATCH --output=./activations_job_%j.out  # Standard output log file
-#SBATCH --error=./activations_job_%j.err   # Standard error log file
+#SBATCH --output=./logs/activations_job_%j.out  # Standard output log file
+#SBATCH --error=./logs/activations_job_%j.err   # Standard error log file
 #SBATCH --partition=nvidia           # The partition (queue) you want to use
 #SBATCH --nodes=1                    # We need just one node
 #SBATCH --ntasks-per-node=1          # One task (our python script) per node
-#SBATCH --gres=gpu:a100:1            # Request one A100 GPU
-#SBATCH -C 80g                       # Request 80 Gb explicitely
+#SBATCH --gres=gpu:a100:4            # Request one A100 GPU
+#SBATCH -C 80g                       # Request 80 Gb explicitly
 #SBATCH --mem=80GB                   # Request 80GB of system RAM
-#SBATCH --time=96:00:00              # Maximum time for the job to run (96 hours)
+#SBATCH --time=10:00:00              # Maximum time for the job to run (96 hours)
 #================================================================#
 #      ENVIRONMENT SETUP                                         #
 #================================================================#
@@ -40,7 +40,7 @@ conda activate abliteration
 CONFIG_FILE="${1:-./config/base_config.yaml}"
 
 # Run the collection script
-python src/run_collection.py --config $CONFIG_FILE
+python src/run_collection.py
 
 # Print completion
 echo ""

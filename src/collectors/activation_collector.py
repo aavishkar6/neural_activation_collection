@@ -56,11 +56,11 @@ class ActivationCollector:
                     print(f"    Processing categories using strategy : {strategy_name}")
                     print("="*50)
 
-                    # Iterate over data categories.
-                    for category_idx, (category, prompts) in enumerate(data.items()):
-                        print(f"    Iterating over category : {category}")
+                    try:
+                        # Iterate over data categories.
+                        for category_idx, (category, prompts) in enumerate(data.items()):
+                            print(f"    Iterating over category : {category}")
 
-                        try:
                             # Collect activation for one model-strategy-category combination.
                             activations = self._collect_single(
                                 model_name = model_name,
@@ -69,15 +69,33 @@ class ActivationCollector:
                                 strategy_name = strategy_name,
                             )
                             
-                            self.storage.save_activations(activations, 
+                            self.storage.save_activations(
+                                activations, 
                                 model_name, 
                                 category,
                                 strategy_name
                             )
+                        
+                        # Get the harmless activations which is only one category.
+                        print(f"    Iterating over category : Harmless Data")
+                        
+                        harmless_activations = self._collect_single(
+                            model_name = model_name,
+                            category = "harmless",
+                            prompts = harmless_data,
+                            strategy_name = strategy_name
+                        )
 
+                        self.storage.save_activations(
+                            harmless_activations,
+                            model_name,
+                            "harmless",
+                            strategy_name
+                        )
 
-                        except Exception as e:
+                    except Exception as e:
                             print(f"Error : {e}")
+                    
             except Exception as e:
                 print(f"Error: {e}")
                 

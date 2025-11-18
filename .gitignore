@@ -1,6 +1,9 @@
 # Ignore the logs folder
 /logs
 
+# Ignore the csv folder.
+*.csv
+
 # Ignore the run output files.
 *.err
 *.out

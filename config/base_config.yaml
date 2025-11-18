@@ -1,37 +1,122 @@
 # Output settings
 output:
   base_dir: "./activations_output"
-  run_name: "run_001"
+  run_name: "run_004"
   save_format: "pt"
   compression: true
 
 # Model settings
 models:
-  - name: "meta-llama/Llama-2-7b-hf"
-    family: "llama"
-    dtype: "float16"
-    device_map: "auto"
+# Meta family of models.
+  # - name: "meta-llama/Llama-2-7b-hf"
+  #   family: "llama"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+  # - name: "meta-llama/Llama-2-13b-hf"
+  #   family: "llama"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+  # - name: "meta-llama/Llama-2-70b-hf"
+  #   family: "llama"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+  # - name: "meta-llama/Llama-2-7b-chat-hf"
+  #   family: "llama"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+  # - name: "meta-llama/Llama-2-13b-chat-hf"
+  #   family: "llama"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+  # - name: "meta-llama/Llama-2-70b-chat-hf"
+  #   family: "llama"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+# Qwen family of models.
+  # - name: "Qwen/Qwen2.5-0.5B"
+  #   family: "qwen"
+  #   dtype: "float16"
+  #   device_map: "auto"
   
-  - name: "google/gemma-2b"
-    family: "gemma"
-    dtype: "float16"
-    device_map: "auto"
+  # - name: "Qwen/Qwen2.5-1.5B-Instruct"
+  #   family: "qwen"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+  # - name: "Qwen/Qwen2.5-7B-Instruct"
+  #   family: "qwen"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+  # - name: "Qwen/Qwen2.5-14B"
+  #   family: "qwen"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+  # - name: "Qwen/Qwen2.5-32B"
+  #   family: "qwen"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+  # - name: "Qwen/Qwen2.5-72B"
+  #   family: "qwen"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+
+
+# Gemma family of models.
+  # - name: "google/shieldgemma-2b"
+  #   family: "gemma"
+  #   dtype: "float16"
+  #   device_map: "auto"
   
-  - name: "Qwen/Qwen-7B"
-    family: "qwen"
-    dtype: "float16"
-    device_map: "auto"
+  # - name: "google/shieldgemma-9b"
+  #   family: "gemma"
+  #   dtype: "float16"
+  #   device_map: "auto"
+  
+  # - name: "google/shieldgemma-27b"
+  #   family: "gemma"
+  #   dtype: "float16"
+  #   device_map: "auto"
+  
+  # - name: "google/gemma-2-2b"
+  #   family: "gemma"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+  # - name: "google/gemma-2-9b"
+  #   family: "gemma"
+  #   dtype: "float16"
+  #   device_map: "auto"
+
+  # - name: "google/gemma-2-27b"
+  #   family: "gemma"
+  #   dtype: "float16"
+  #   device_map: "auto"
 
 # Data settings
 data:
   dataset_name: "declare-lab/CategoricalHarmfulQA"
   categories:
-    - "Adult Content"
-    - "Economic Harm"
+    - "Illegal Activity"
+    - "Child Abuse"
     - "Hate/Harass/Violence"
     - "Malware Viruses"
+    - "Physical Harm"
+    - "Economic Harm"
+    - "Fraud/Deception"
+    - "Adult Content"
     - "Political Campaigning"
-  
+    - "Privacy Violation Activity"
+    - "Tailored Financial Advice"
   num_samples_per_category: 50
   harmless_data_path: "/scratch/ag8298/post_grad_experiments/neural_activity_collection/harmless_data.txt"
 
@@ -40,10 +125,10 @@ collection:
   strategies:
     - "first_token"
     - "first_5_tokens"
-    - "first_10_tokens"
+    # - "first_10_tokens"
     - "last_token"
-    - "mean_last_5"
-    - "concept_position"
+    - "last_5_tokens"
+    # - "concept_position"
   
   batch_size: 4  # For nnsight processing
   max_length: 512

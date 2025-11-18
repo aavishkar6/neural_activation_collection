@@ -100,3 +100,10 @@ class FirstFiveStrategy(TokenPositionStrategy):
     def __init__(self, name: str="first_5_tokens", config: Dict = None):
         config = config or {'position': [0, 1, 2, 3, 4,], 'aggregation': 'mean'}
         super().__init__(name, config)
+
+class FirstTenStrategy(TokenPositionStrategy):
+    """Strategy for first 10 tokens"""
+
+    def __init__(self, name: str="first_10_tokens", config: Dict = None):
+        config = config or {'position': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'aggregation': 'mean'}
+        super().__init__(name, config)
