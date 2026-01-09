@@ -1,7 +1,7 @@
 # Output settings
 output:
   base_dir: "./activations_output"
-  run_name: "run_004"
+  run_name: "run_009_aavishkar"
   save_format: "pt"
   compression: true
 
@@ -39,10 +39,10 @@ models:
   #   device_map: "auto"
 
 # Qwen family of models.
-  # - name: "Qwen/Qwen2.5-0.5B"
-  #   family: "qwen"
-  #   dtype: "float16"
-  #   device_map: "auto"
+  - name: "Qwen/Qwen2.5-0.5B"
+    family: "qwen"
+    dtype: "float16"
+    device_map: "auto"
   
   # - name: "Qwen/Qwen2.5-1.5B-Instruct"
   #   family: "qwen"
@@ -69,13 +69,11 @@ models:
   #   dtype: "float16"
   #   device_map: "auto"
 
-
-
-# Gemma family of models.
-  # - name: "google/shieldgemma-2b"
-  #   family: "gemma"
-  #   dtype: "float16"
-  #   device_map: "auto"
+#Gemma family of models.
+  - name: "google/shieldgemma-2b"
+    family: "gemma"
+    dtype: "float16"
+    device_map: "auto"
   
   # - name: "google/shieldgemma-9b"
   #   family: "gemma"
@@ -84,20 +82,20 @@ models:
   
   # - name: "google/shieldgemma-27b"
   #   family: "gemma"
-  #   dtype: "float16"
-  #   device_map: "auto"
-  
-  # - name: "google/gemma-2-2b"
-  #   family: "gemma"
-  #   dtype: "float16"
-  #   device_map: "auto"
-
-  # - name: "google/gemma-2-9b"
-  #   family: "gemma"
-  #   dtype: "float16"
+  #   dtype: "bfloat16"
   #   device_map: "auto"
 
   # - name: "google/gemma-2-27b"
+  #   family: "gemma"
+  #   dtype: "bfloat16"
+  #   device_map: "auto"
+  
+#   - name: "google/gemma-2-2b"
+#      family: "gemma"
+#      dtype: "float16"
+#      device_map: "auto"
+
+  # - name: "google/gemma-2-9b"
   #   family: "gemma"
   #   dtype: "float16"
   #   device_map: "auto"
@@ -119,12 +117,13 @@ data:
     - "Tailored Financial Advice"
   num_samples_per_category: 50
   harmless_data_path: "/scratch/ag8298/post_grad_experiments/neural_activity_collection/harmless_data.txt"
+  rewritten_prompts_data_path : "/scratch/ag8298/post_grad_experiments/neural_activity_collection/rewritten_prompts_all_prompts.json"
 
 # Collection settings
 collection:
   strategies:
-    - "first_token"
-    - "first_5_tokens"
+    # - "first_token"
+    # - "first_5_tokens"
     # - "first_10_tokens"
     - "last_token"
     - "last_5_tokens"

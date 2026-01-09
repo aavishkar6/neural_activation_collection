@@ -2,6 +2,7 @@ import torch
 from datasets import load_dataset
 from typing import Dict, List, Optional
 from pathlib import Path
+import json
 
 class DatasetLoader:
     """
@@ -99,6 +100,32 @@ class DatasetLoader:
         
         return prompts
 
+    def load_harmful_data_rewritten_prompts(self) -> Dict[str, List[str]]:
+        """
+        Load the rewritten data that were received by prompting mistral.
+        """
+
+        self.rewritten_prompts_data_path = self.data_config.get('rewritten_prompts_data_path', {})
+        assert self.rewritten_prompts_data_path is not None, "Dataset path is empty. Please provide path to the dataset under config."
+
+        # Load the json file.
+        with open(self.rewritten_prompts_data_path, 'r') as file:
+            data = json.load(file)
+
+        harmful_data = {}
+
+        # Loop over all the keys.
+        for categories, data_points in data.items():
+            row = []
+            # loop over each of the harmful categories.
+            for prompts in data_points:
+                row.extend( [prompts['original_prompt']] + prompts['rewritten_prompts'])
+            # Append to a dictionary.
+            harmful_data[categories] = row
+
+        # Return the data as a dict.
+        return harmful_data
+
     def load_all(self) -> tuple:
         """
         Load all data.
@@ -106,7 +133,7 @@ class DatasetLoader:
         Returns:
             Tuple of (harmful_data, harmless_data)
         """
-        harmful_data = self.load_harmful_data()
+        harmful_data = self.load_harmful_data_rewritten_prompts()
         harmless_data = self.load_harmless_data()
         
         return harmful_data, harmless_data

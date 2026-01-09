@@ -51,7 +51,7 @@ def main():
     data_loader = DatasetLoader(config)
     harmful_data, harmless_data = data_loader.load_all()
 
-    # # Load data.
+    # Load data.
     # data_loader = DatasetLoader(config)
     # harmful_data, harmless_data = data_loader.load_all()
 
@@ -88,11 +88,6 @@ def main():
         import traceback
         traceback.print_exc()
         sys.exit(1)
-
-
-
-
-
 
 
 

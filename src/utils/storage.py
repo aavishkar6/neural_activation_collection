@@ -52,7 +52,7 @@ class ActivationStorage:
             'strategies': {}
         }
 
-    def get_save_path(self, model_name, category, strategy):
+    def get_save_path(self, model_name, category, strategy, refused_prompts):
         """
         Get save path for a specific combination.
         """
@@ -67,19 +67,22 @@ class ActivationStorage:
         category_dir.mkdir(parents=True, exist_ok=True)
 
         # Create filename
-        filename = f"category_{category_clean}.{self.save_format}"
+        if refused_prompts:
+            filename = f"category_{category_clean}_refused.{self.save_format}"
+        else:
+            filename = f"category_{category_clean}_non_refused.{self.save_format}"
 
         return category_dir / filename
 
-    def save_activations(self, activations, model_name, category, strategy):
+    def save_activations(self, refused_activations, non_refused_activations, model_name, category, strategy):
 
-        save_path = self.get_save_path(model_name, category, strategy)
+        save_path_refused = self.get_save_path(model_name, category, strategy, refused_prompts = True)
+        save_path_non_refused = self.get_save_path(model_name, category, strategy, refused_prompts = False)
 
         # print(f"Save path is {save_path}")
 
-        torch.save(activations, save_path)
+        torch.save(refused_activations, save_path_refused)
+        torch.save(non_refused_activations, save_path_non_refused)
 
-        print(f"✓ Saved to: {save_path}")
 
-
-    
+        print(f"✓ Saved to: {save_path_refused} and {save_path_non_refused}")

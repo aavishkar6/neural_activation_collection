@@ -63,6 +63,13 @@ class TokenPositionStrategy(BaseCollectionStrategy):
                 # Save activation
                 activations[idx] = position_acts.save()
         
+        # 2. Outside the trace: Now the data is actually available
+        for idx in layers:
+            actual_tensor = activations[idx]
+            
+            if torch.isnan(actual_tensor).any():
+                print(f"Warning: NaN detected in layer {idx}")
+            
         return activations
     
     def get_description(self) -> str:

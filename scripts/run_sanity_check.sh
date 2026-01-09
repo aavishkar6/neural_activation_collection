@@ -10,10 +10,10 @@
 #SBATCH --partition=nvidia           # The partition (queue) you want to use
 #SBATCH --nodes=1                    # We need just one node
 #SBATCH --ntasks-per-node=1          # One task (our python script) per node
-#SBATCH --gres=gpu:a100:3            # Request one A100 GPU
-#SBATCH -C 80g                       # Request 80 Gb explicitly
-#SBATCH --mem=80GB                   # Request 80GB of system RAM
-#SBATCH --time=08:00:00              # Maximum time for the job to run (96 hours)
+#SBATCH --gres=gpu:a100:2            # Request one A100 GPU
+#SBATCH -C 40g                       # Request 80 Gb explicitly
+#SBATCH --mem=40GB                   # Request 80GB of system RAM
+#SBATCH --time=04:00:00              # Maximum time for the job to run (96 hours)
 #================================================================#
 #      ENVIRONMENT SETUP                                         #
 #================================================================#
@@ -37,7 +37,7 @@ eval "$(conda shell.bash hook)"
 conda activate abliteration
 
 # Run the collection script
-python src/run_collection.py
+python test_gemma_27b.py
 
 # Print completion
 echo ""
