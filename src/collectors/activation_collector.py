@@ -108,7 +108,7 @@ class ActivationCollector:
 
                         self.storage.save_activations(
                             harmless_refused,
-                            harmless_non_refused
+                            harmless_non_refused,
                             model_name,
                             "harmless",
                             strategy_name
